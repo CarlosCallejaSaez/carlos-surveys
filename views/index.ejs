@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carlos Surveys</title>
+  <link rel=" icon" href="https://cdn-icons-png.flaticon.com/128/4500/4500747.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;}
+    h1, h2 {
+      color: #333;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #fff;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      margin-top: 20px; 
+      padding: 10px 0;
+      background-color: #33333377;
+      color: #fff;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+
+      input[type="text"], button {
+        width: calc(100% - 20px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Carlos Surveys</h1>
+    
+    <h2>Create Survey</h2>
+    <form action="/surveys" method="POST">
+      <input type="text" name="title" placeholder="Survey Title" required>
+      <div id="questions">
+        <div class="question">
+          <input type="text" name="questions[0][questionText]" placeholder="Question Text" required>
+          <input type="text" name="questions[0][options][]" placeholder="Option 1" required>
+          <input type="text" name="questions[0][options][]" placeholder="Option 2" required>
+          <button type="button" onclick="addOption(this)">Add Option</button>
+        </div>
+      </div>
+      <div class="container-btn">
+    
+      <button type="button" onclick="addQuestion()">Add Question</button>
+      <button type="submit">Create Survey</button>
+    </form>
+
+    <h2>Existing Surveys</h2>
+    <% if (surveys.length > 0) { %>
+      <ul>
+        <% surveys.forEach(survey => { %>
+          <li>
+            <%= survey.title %> - 
+            <a href="/surveys/<%= survey._id %>">View</a> 
+          
+          </li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p>No surveys found</p>
+    <% } %>
+  </div>
+
+  <script>
+    function addQuestion() {
+      const questionsDiv = document.getElementById('questions');
+      const questionCount = questionsDiv.getElementsByClassName('question').length;
+      const newQuestionDiv = document.createElement('div');
+      newQuestionDiv.classList.add('question');
+      newQuestionDiv.innerHTML = `
+        <input type="text" name="questions[${questionCount}][questionText]" placeholder="Question Text" required>
+        <input type="text" name="questions[${questionCount}][options][]" placeholder="Option 1" required>
+        <input type="text" name="questions[${questionCount}][options][]" placeholder="Option 2" required>
+        <button type="button" onclick="addOption(this)">Add Option</button>
+      `;
+      questionsDiv.appendChild(newQuestionDiv);
+    }
+
+    function addOption(button) {
+      const optionInput = document.createElement('input');
+      optionInput.type = 'text';
+      optionInput.name = button.previousElementSibling.name;
+      optionInput.placeholder = 'Option';
+      optionInput.required = true;
+      button.parentNode.insertBefore(optionInput, button);
+    }
+  </script>
+   <footer>
+    Carlos Calleja Sáez 2024 | <a href="https://github.com/CarlosCallejaSaez" target="_blank">GitHub</a>
+  </footer>
+</body>
+</html>
