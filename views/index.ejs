@@ -135,7 +135,8 @@
         <% surveys.forEach(survey => { %>
           <li>
             <%= survey.title %> - 
-            <a href="/surveys/<%= survey._id %>">View</a> 
+            <a href="/surveys/<%= survey._id %>">View</a> |
+            <a href="/surveys/<%= survey._id %>/edit">Edit</a>
           
           </li>
         <% }); %>

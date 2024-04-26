@@ -60,7 +60,7 @@ exports.getEditSurvey = async (req, res) => {
 exports.updateSurvey = async (req, res) => {
   try {
     const { title, questions } = req.body;
-    await Survey.findByIdAndUpdate(req.params.id, { title, questions: questions.split(',') });
+await Survey.findByIdAndUpdate(req.params.id, { title, questions: JSON.parse(questions) });
     res.redirect('/');
   } catch (err) {
     console.error(err);
