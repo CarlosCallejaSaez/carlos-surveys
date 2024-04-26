@@ -5,6 +5,7 @@ CarlosSurveys es una aplicación web para crear y responder encuestas. Permite a
 ## Características
 - **Crear Encuestas:** Los usuarios pueden crear nuevas encuestas proporcionando un título y añadiendo preguntas con opciones.
 - **Responder Encuestas:** Los participantes pueden responder encuestas existentes seleccionando opciones para cada pregunta.
+- **Editar y Eliminar Encuestas:** Los participantes pueden editar y/o eliminar encuestas existentes.
 - **Visualización de Encuestas:** Los usuarios pueden ver los detalles de una encuesta específica, incluyendo su título y todas las preguntas con opciones.
 
 ## Tecnologías Utilizadas
